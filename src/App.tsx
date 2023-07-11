@@ -8,13 +8,14 @@
 import React from 'react';
 import {SafeAreaView, ScrollView, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
+import LoginScreen from "./screens/login/LoginScreen";
 
 function App(): JSX.Element {
   return (
     <NavigationContainer>
       <SafeAreaView>
         <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <Text>hola mundo xd </Text>
+          <LoginScreen/>
         </ScrollView>
       </SafeAreaView>
     </NavigationContainer>

@@ -40,6 +40,7 @@
 		631329A8612172E1E289342D /* Pods-ReservaTuHora-ReservaTuHoraTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservaTuHora-ReservaTuHoraTests.release.xcconfig"; path = "Target Support Files/Pods-ReservaTuHora-ReservaTuHoraTests/Pods-ReservaTuHora-ReservaTuHoraTests.release.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ReservaTuHora/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AA8F137A96415C8F77CA8C47 /* Pods-ReservaTuHora-ReservaTuHoraTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ReservaTuHora-ReservaTuHoraTests.debug.xcconfig"; path = "Target Support Files/Pods-ReservaTuHora-ReservaTuHoraTests/Pods-ReservaTuHora-ReservaTuHoraTests.debug.xcconfig"; sourceTree = "<group>"; };
+		BE5EBD0A2A5D04F500E906F3 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		BEBD524155F91C958B796CEE /* libPods-ReservaTuHora-ReservaTuHoraTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReservaTuHora-ReservaTuHoraTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BF4D3BDF412BD4E7CF193B6D /* libPods-ReservaTuHora.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ReservaTuHora.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -86,6 +87,7 @@
 		13B07FAE1A68108700A75B9A /* ReservaTuHora */ = {
 			isa = PBXGroup;
 			children = (
+				BE5EBD092A5D048700E906F3 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -146,6 +148,14 @@
 				631329A8612172E1E289342D /* Pods-ReservaTuHora-ReservaTuHoraTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BE5EBD092A5D048700E906F3 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BE5EBD0A2A5D04F500E906F3 /* MaterialCommunityIcons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -486,8 +496,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = ReservaTuHora/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -513,7 +525,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
 				INFOPLIST_FILE = ReservaTuHora/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
