@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@react-native-community/cli-doctor": "^11.3.5",
+    "@react-native-firebase/app": "^18.2.0",
     "@react-navigation/native": "^6.1.7",
     "@rneui/base": "^0.0.0-edge.2",
     "@rneui/themed": "^0.0.0-edge.2",
