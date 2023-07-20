@@ -24,12 +24,11 @@ const RegisterScreen = () => {
   };
 
   return (
-    <View>
-      <Input placeholder={'Ingrese su correo'} label={'Correo'} ref={user} />
+    <View style={{flex: 1}}>
+      <Input placeholder={'Ingrese su correo'} label={'Correo'} />
       <Input
         placeholder={'Ingrese su contraseña'}
         label={'Contraseña'}
-        ref={password}
       />
       <Button
         title={'Registrar'}

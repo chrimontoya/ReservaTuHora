@@ -37,6 +37,13 @@
             {
               "client_id": "75132561534-3c5tbd4su0coghcneocn4up4i91ia735.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "75132561534-kduk4lfm3037rqinv0r8dg91slmabfai.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cl.grupopi.reservatuhora"
+              }
             }
           ]
         }

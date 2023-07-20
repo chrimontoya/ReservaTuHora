@@ -1,13 +1,13 @@
 import React from 'react';
-import { View, Text } from "react-native";
-import { Input, Icon } from '@rneui/themed';
-
-const LoginScreen = () => {
+import {View, Button} from 'react-native';
+import { Input } from '@rneui/themed';
+const LoginScreen = ({ navigation }) => {
   const userRef = React.createRef();
   const passRef = React.createRef();
 
-  const redirectToRegister = () => {
-  };
+  // const redirectToRegister = () => {
+  //     navigation.push('Register');
+  // };
 
 
   return (
@@ -21,8 +21,7 @@ const LoginScreen = () => {
         label={'Contraseña'}
         rightIcon={{type: 'material-community', name: 'eye'}}
         ref={passRef}
-      />
-      <Text onPress={() => redirectToRegister()}>Registrar</Text>
+      /><Button title={'Registrar'} type={'clear'} onPress={() => navigation.navigate("Register")}/>
     </View>
   )
 }

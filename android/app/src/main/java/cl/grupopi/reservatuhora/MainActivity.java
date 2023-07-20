@@ -1,4 +1,4 @@
-package com.reservatuhora;
+package cl.grupopi.reservatuhora;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
