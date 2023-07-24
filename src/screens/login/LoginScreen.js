@@ -21,7 +21,10 @@ const LoginScreen = ({ navigation }) => {
         label={'Contraseña'}
         rightIcon={{type: 'material-community', name: 'eye'}}
         ref={passRef}
-      /><Button title={'Registrar'} type={'clear'} onPress={() => navigation.navigate("Register")}/>
+      />
+        <Button title={'Iniciar sesión'} type={'outline'}/>
+        <Button title={'Registrar'} type={'clear'} onPress={() => navigation.navigate("Register")}/>
+
     </View>
   )
 }
