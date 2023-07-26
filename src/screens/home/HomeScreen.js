@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Input, Icon} from '@rneui/themed';
 import {Text, View} from 'react-native';
 import HorizontalCategoryList from "../../components/HorizontalCategoryList";
+import firestore from '@react-native-firebase/firestore';
+import HorizontalBookingCard from "../../components/HorizontalBookingCard";
 const HomeScreen = () => {
     const [place, setPlace] = React.useState();
+    const [reservas, setReservas] = React.useState([]);
     const data = [
         {
             id: 1,
@@ -27,6 +30,16 @@ const HomeScreen = () => {
         }
     ]
 
+    const getReservas =  () => {
+        firestore().collection('PLACE').get().then(res => {
+            res.docs.map(doc => reservas.push(doc.data()));
+        });
+    }
+
+    useEffect( () => {
+        getReservas();
+    },[]);
+
     return (
         <View>
             <Text>Hola Nombre usuario</Text>
@@ -37,6 +50,7 @@ const HomeScreen = () => {
                 onChangeText={(place) => setPlace(place)}
             />
             <HorizontalCategoryList data={data}/>
+            <HorizontalBookingCard data={reservas}/>
         </View>
 
     )
