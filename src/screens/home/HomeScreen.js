@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {Input, Icon} from '@rneui/themed';
+import {Input} from '@rneui/themed';
 import {Text, View} from 'react-native';
 import HorizontalCategoryList from "../../components/HorizontalCategoryList";
 import firestore from '@react-native-firebase/firestore';

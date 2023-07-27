@@ -30,7 +30,7 @@ const HorizontalBookingCard = ({data}) => {
                 data={data}
                 renderItem={({item}) =>
                     <View style={styles.container}>
-                        <TouchableOpacity onPress={() => navigation.navigate('BookingPlace')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('BookingPlace', item)}>
                             <View style={styles.containerImg}/>
                         </TouchableOpacity>
                         <Text style={styles.title} >{item.name}</Text>
