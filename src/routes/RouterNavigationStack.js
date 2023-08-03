@@ -6,6 +6,7 @@ import RegisterScreen from '../screens/login/RegisterScreen';
 import HomeScreen from "../screens/home/HomeScreen";
 import BookingPlaceScreen from "../screens/home/BookingPlaceScreen";
 import BookingScreen from "../screens/home/BookingScreen";
+import {Text, View} from "react-native";
 const RouterNavigationStack = () => {
   const Stack = createNativeStackNavigator();
   return (
@@ -15,7 +16,7 @@ const RouterNavigationStack = () => {
           <Stack.Screen name={'Register'} component={RegisterScreen} />
           <Stack.Screen name={'Home'} component={HomeScreen} />
           <Stack.Screen name={'BookingPlace'} component={BookingPlaceScreen} />
-          <Stack.Screen name={'Booking'} component={BookingScreen} />
+        <Stack.Screen name={'Booking'} component={BookingScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
