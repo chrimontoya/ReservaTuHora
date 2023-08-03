@@ -2,7 +2,7 @@ import React from 'react';
 import {View,StyleSheet,Text} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {Button} from "@rneui/themed";
-import BookingPlaceModel from "../../models/BookingPlaceModel";
+import PlaceModel from "../../models/PlaceModel";
 
 const styles = StyleSheet.create({
     container: {
@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
         right: 20,
     },
 });
-const BookingPlaceScreen = ({route}) => {
+const BookingPlaceScreen = ({navigation,route}) => {
 
-    const { name,description,address,img,availableTime,reviews}: BookingPlaceModel = route.params;
+    const { name,description,address,img,availableTime,reviews}: PlaceModel = route.params;
     
     return (
         <View style={styles.container}>
@@ -89,7 +89,7 @@ const BookingPlaceScreen = ({route}) => {
                     <Icon name={'clock'} style={styles.clockIcon}/>
                     <Text style={styles.bookingText}>{'Horas disponibles hoy ' + availableTime}</Text>
                 </View>
-                <Button title={"Reservar hora"} containerStyle={styles.containerBookingButton} onPress={() => console.log(route.params)}/>
+                <Button title={"Reservar hora"} containerStyle={styles.containerBookingButton} onPress={() => navigation.navigate('Booking',route.params ) }/>
             </View>
         </View>
     )

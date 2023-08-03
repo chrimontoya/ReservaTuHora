@@ -1,4 +1,4 @@
-class BookingPlaceModel {
+class PlaceModel {
     name: String;
     address: String;
     description: String;
@@ -6,4 +6,4 @@ class BookingPlaceModel {
     img: String;
     reviews: number;
 }
-export default BookingPlaceModel;
+export default PlaceModel;

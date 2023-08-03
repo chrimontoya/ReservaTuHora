@@ -30,14 +30,20 @@ const HomeScreen = () => {
         }
     ]
 
-    const getReservas =  () => {
-        firestore().collection('PLACE').get().then(res => {
-            res.docs.map(doc => reservas.push(doc.data()));
-        });
-    }
+    const getReservas = async () => {
+        try {
+            const querySnapshot = await firestore().collection('PLACE').get();
+            const reservas = querySnapshot.docs.map(doc => doc.data());
+            setReservas(reservas);
+        } catch (error) {
+            console.error("Error al obtener la colección:", error);
+            throw error; // Opcionalmente, puedes lanzar el error para manejarlo en el componente que invoca esta función.
+        }
+    };
 
     useEffect( () => {
         getReservas();
+
     },[]);
 
     return (
