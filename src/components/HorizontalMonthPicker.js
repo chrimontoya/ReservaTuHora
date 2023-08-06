@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
@@ -73,7 +73,7 @@ const months = [
         id: 12,
         name: "Diciembre"
     },];
-const HorizontalMonthPicker = () => {
+const HorizontalMonthPicker = ({navigation, getMonthSelected}) => {
     const [currentMonth, setCurrentMonth] = React.useState((new Date().getMonth() + 1));
 
     const getBeforeMonth = () => {
@@ -86,6 +86,10 @@ const HorizontalMonthPicker = () => {
             setCurrentMonth(currentMonth + 1);
         }
     }
+
+    useEffect(() => {
+        getMonthSelected(currentMonth);
+    },[currentMonth]);
 
     return (
         <View style={styles.container}>
