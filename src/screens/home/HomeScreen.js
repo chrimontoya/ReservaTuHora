@@ -4,12 +4,9 @@ import {Text, View} from 'react-native';
 import HorizontalCategoryList from "../../components/HorizontalCategoryList";
 import firestore from '@react-native-firebase/firestore';
 import HorizontalBookingCard from "../../components/HorizontalBookingCard";
-import HorizontalMonthPicker from "../../components/HorizontalMonthPicker";
-import HorizontalDayPicker from '../../components/HorizontalDayPicker';
 const HomeScreen = () => {
     const [place, setPlace] = React.useState(null);
     const [reservas, setReservas] = React.useState([]);
-    const [monthSelected, setMonthSelected] = React.useState(null);
     const data = [
         {
             id: 1,
@@ -44,10 +41,6 @@ const HomeScreen = () => {
         }
     };
 
-    const getMonthSelected = (month) => {
-        setMonthSelected(month);
-    };
-
     useEffect( () => {
         getReservas();
 
@@ -55,8 +48,6 @@ const HomeScreen = () => {
 
     return (
         <View>
-            <HorizontalMonthPicker getMonthSelected={getMonthSelected}/>
-            <HorizontalDayPicker  year={new Date().getFullYear()} month={monthSelected}/>
             <Text>Hola Nombre usuario</Text>
             <Text>subtitulo</Text>
             <Input

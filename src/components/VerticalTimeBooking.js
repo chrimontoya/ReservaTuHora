@@ -1,0 +1,64 @@
+import React, { useEffect } from 'react'
+import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import minutesData from '../data/minutes';
+
+const styles = StyleSheet.create({
+    container: {
+        borderTopWidth: 1,
+        flex: 1,
+    },
+    containerReserva: {
+        flexDirection: "row",
+    },
+    containerMinutesLabel: {
+        width: "25%",
+        borderRightWidth: 1,
+    },
+    minutesLabel: {
+        fontSize: 20,
+        padding: 10,
+        fontWeight: "bold",
+        textAlign: "center",
+    },
+    reservaButton: {
+        width: "70%",
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderRightWidth: 1,
+    },
+    reservaLabel: {
+        textAlignVertical: "center",
+        fontSize: 20,
+        fontWeight: "bold",
+        padding: 10,
+        textAlign: "center"
+    }
+});
+
+const VerticalTimeBooking = () => {
+
+    useEffect(()=>{
+
+    },[]);
+
+
+  return (
+    <View style={styles.container}>
+        <FlatList
+            data={minutesData.minutes}
+            renderItem={({item})=> 
+                <View style={styles.containerReserva}>
+                    <View style={styles.containerMinutesLabel}>
+                        <Text style={styles.minutesLabel}>{item.minute}</Text>
+                    </View>
+                    <TouchableOpacity style={styles.reservaButton}>
+                        <Text style={styles.reservaLabel}>{item.book == false ? 'Reservado' : 'Disponible para reserva'}</Text>
+                    </TouchableOpacity>
+                </View>
+        }
+        />
+    </View>
+  )
+}
+
+export default VerticalTimeBooking;
