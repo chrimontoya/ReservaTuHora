@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HorizontalDayPicker from '../../components/HorizontalDayPicker';
 import HorizontalMonthPicker from '../../components/HorizontalMonthPicker';
 import VerticalTimeBooking from '../../components/VerticalTimeBooking';
