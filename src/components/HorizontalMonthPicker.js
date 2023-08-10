@@ -88,7 +88,7 @@ const HorizontalMonthPicker = ({navigation, getMonthSelected}) => {
     }
 
     useEffect(() => {
-        getMonthSelected(currentMonth);
+        getMonthSelected(currentMonth - 1);
     },[currentMonth]);
 
     return (

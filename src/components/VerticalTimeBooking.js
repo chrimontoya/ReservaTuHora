@@ -34,62 +34,37 @@ const styles = StyleSheet.create({
         fontWeight: "bold",
         padding: 10,
         textAlign: "center"
-    }
+    },
+    titleReservaLabel: {
+        fontSize: 14,
+        textAlign: "center",
+    },
+    fechaReservaLabel: {
+        fontSize: 24,
+        textAlign: "center"
+    },
 });
 
-const VerticalTimeBooking = () => {
+const VerticalTimeBooking = ({setTimeSelected}) => {
     const [dialogVisible, setDialogVisible] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [dialogConfirm, setDialogConfirm] = React.useState(false);
-    const [title, setTitle] = React.useState('Confirmar reserva');
-    const [description, setDescription] = React.useState('Una vez confirmado quedará registrado en el lugar de reserva y se enviará un correo con las indicaciones por parte del lugar de reserva');
     const [action, setAction] = React.useState(false);
-
-    useEffect(()=>{
-        actionSelected();
-    },[action]);
-
-    const booking=(book) => {
-        if(book){
-            setDialogVisible(book)
-        }else{
-            setDialogVisible(book)
-        }
-    }
-
-    const actionSelected = () => {
-        //confirm
-        if(action){
-            console.log("Abro screen");
-            setDialogVisible(false);
-            setLoading(true);
-            setTimeout(()=>{
-                //simula llamada a bd
-                setLoading(false);
-                setDialogConfirm(true);
-            },2000);
-        }else{
-            //cancel
-            console.log("No hago nada ");
-            setDialogVisible(false);
-        }
-        
-    }
+    const [bookSelected, setBookSelected] = React.useState(undefined);
 
   return (
     <View style={styles.container}>
-        <DialogAction visible={dialogVisible} setVisible={setDialogVisible} description={description} title={title} setAction={setAction}/>
+        {/* <DialogAction visible={dialogVisible} setVisible={setDialogVisible} description={description} title={title} setAction={setAction}/>
         <Dialog visible={loading}>
             <Dialog.Loading/>
         </Dialog>
         <Dialog 
             visible={dialogConfirm}
             onBackdropPress={()=> setDialogConfirm(false)}>
-            {/* <Dialog.Title title={''}/> */}
-            <Text>Se ha realizado la reserva</Text>
-            <Text>fecha</Text>
-            <Button title={'Aceptar'}/>
-        </Dialog>
+            <Text style={styles.titleReservaLabel}>Se ha realizado la reserva</Text>
+            <Text style={styles.reservaLabel}>Miercoles 9 de Agosto 10:30 AM {data.date + " " + data.time}</Text>
+            <Button title={'Aceptar'} onPress={()=> setDialogConfirm(false)}/>
+        </Dialog> */}
         <FlatList
             data={minutesData.minutes}
             renderItem={({item})=> 
@@ -97,7 +72,7 @@ const VerticalTimeBooking = () => {
                     <View style={styles.containerMinutesLabel}>
                         <Text style={styles.minutesLabel}>{item.minute}</Text>
                     </View>
-                    <TouchableOpacity style={styles.reservaButton} onPress={() => booking(item.book)}>
+                    <TouchableOpacity style={styles.reservaButton} onPress={() => setTimeSelected(item.id)}>
                         <Text style={styles.reservaLabel}>{item.book == false ? 'Reservado' : 'Disponible para reserva'}</Text>
                     </TouchableOpacity>
                 </View>

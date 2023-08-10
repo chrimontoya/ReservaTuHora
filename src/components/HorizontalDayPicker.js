@@ -26,10 +26,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const HorizontalDayPicker = ({navigation, year,month}) => {
+const HorizontalDayPicker = ({navigation, year,month, setDay}) => {
     const [days, setDays] = React.useState([]);
 
     useEffect(() =>{
+        setDay(new Date().getDate());
         if(month != undefined){
             setDays(Utils.getDaysFromMonth(year,month));
         }
@@ -42,7 +43,7 @@ const HorizontalDayPicker = ({navigation, year,month}) => {
             horizontal
             data={days}
             renderItem={({item})=> 
-            <TouchableOpacity style={styles.button}>
+            <TouchableOpacity style={styles.button} onPress={()=>setDay(item.id)}>
                 <View style={styles.containerDays}>
                     <Text style={styles.numberDayLabel}>{item.id}</Text>
                     <Text style={styles.nameDayLabel}>{item.name}</Text>
