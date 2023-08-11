@@ -46,25 +46,9 @@ const styles = StyleSheet.create({
 });
 
 const VerticalTimeBooking = ({setTimeSelected}) => {
-    const [dialogVisible, setDialogVisible] = React.useState(false);
-    const [loading, setLoading] = React.useState(false);
-    const [dialogConfirm, setDialogConfirm] = React.useState(false);
-    const [action, setAction] = React.useState(false);
-    const [bookSelected, setBookSelected] = React.useState(undefined);
 
   return (
     <View style={styles.container}>
-        {/* <DialogAction visible={dialogVisible} setVisible={setDialogVisible} description={description} title={title} setAction={setAction}/>
-        <Dialog visible={loading}>
-            <Dialog.Loading/>
-        </Dialog>
-        <Dialog 
-            visible={dialogConfirm}
-            onBackdropPress={()=> setDialogConfirm(false)}>
-            <Text style={styles.titleReservaLabel}>Se ha realizado la reserva</Text>
-            <Text style={styles.reservaLabel}>Miercoles 9 de Agosto 10:30 AM {data.date + " " + data.time}</Text>
-            <Button title={'Aceptar'} onPress={()=> setDialogConfirm(false)}/>
-        </Dialog> */}
         <FlatList
             data={minutesData.minutes}
             renderItem={({item})=> 

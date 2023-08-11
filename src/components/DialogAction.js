@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
 });
 
 const DialogAction = ({visible, setVisible, title, description, setAction}) => {
-    // const [visible, setVisible] = React.useState(state);
 
     const toggleDialog = () => {
         setVisible(!visible);
