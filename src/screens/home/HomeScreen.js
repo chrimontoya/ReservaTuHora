@@ -4,6 +4,7 @@ import {Text, View} from 'react-native';
 import HorizontalCategoryList from "../../components/HorizontalCategoryList";
 import firestore from '@react-native-firebase/firestore';
 import HorizontalBookingCard from "../../components/HorizontalBookingCard";
+import HorizontalMonthPicker from '../../components/HorizontalMonthPicker';
 const HomeScreen = () => {
     const [place, setPlace] = React.useState(null);
     const [reservas, setReservas] = React.useState([]);

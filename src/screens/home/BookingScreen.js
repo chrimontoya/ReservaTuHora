@@ -21,6 +21,7 @@ const BookingScreen = ({navigation, route: {params}}) => {
     const [success, setSuccess] = React.useState(false);
     const [title, setTitle] = React.useState('Confirmar reserva');
     const [description, setDescription] = React.useState('Una vez confirmado quedará registrado en el lugar de reserva y se enviará un correo con las indicaciones por parte del lugar de reserva');
+    const [calendar, setCalendar] = React.useState(undefined);
 
     const booking = (state) => {
         if(state){
@@ -44,10 +45,13 @@ const BookingScreen = ({navigation, route: {params}}) => {
         }
     }
 
+    useEffect(() => {
+        console.log(calendar.month, calendar.day);
+    },[calendar])
+
     return (
         <View style={styles.container}>
-            <HorizontalMonthPicker getMonthSelected={setMonthSelected}/>
-            <HorizontalDayPicker  year={new Date().getFullYear()} month={monthSelected} setDay={setDaySelected}/>
+            <HorizontalMonthPicker getCalendar={setCalendar}/>
             <VerticalTimeBooking setTimeSelected={getTimeSelected}/>
             <DialogAction visible={dialogConfirmVisible} setVisible={setDialogConfirmVisible} setAction={booking} title={title} description={description}/>
             <Dialog visible={loading}>

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import minutesData from '../data/minutes';
+import {minutesData} from '../data/calendar';
 import DialogAction from './DialogAction';
 import { Button, Dialog } from '@rneui/themed';
 
