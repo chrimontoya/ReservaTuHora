@@ -38,7 +38,6 @@ const HomeScreen = () => {
             setReservas(reservas);
         } catch (error) {
             console.error("Error al obtener la colección:", error);
-            throw error; // Opcionalmente, puedes lanzar el error para manejarlo en el componente que invoca esta función.
         }
     };
 

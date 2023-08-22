@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
 });
 const BookingPlaceScreen = ({navigation,route}) => {
 
-    const { name,description,address,img,availableTime,reviews}: PlaceModel = route.params;
-    
+    const { name,description,address,img,availableTime,reviews, id}: PlaceModel = route.params;
+
     return (
         <View style={styles.container}>
             <View style={styles.containerDescription}>
