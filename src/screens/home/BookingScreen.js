@@ -25,14 +25,19 @@ const BookingScreen = ({navigation, route: {params}}) => {
     const [calendar, setCalendar] = React.useState(undefined);
     const [books, setbooks] = React.useState([]);
 
-    const booking = (state) => {
+    const booking = async (state) => {
         if(state){
             //confirm call to bd
+            setDialogConfirmVisible(false);
             setLoading(true);
-            console.log(`params: ${params} - reserva: ${bookingDate}`);
-            setSuccess(true);
+            console.log(`params: ${params.title} - reserva: ${bookingDate}`);
+            await firestore()
+              .collection('BOOK')
+              .add()
+            // setSuccess(true);
         }else{
-
+            //levantar algún popup por debajo
+            setDialogConfirmVisible(false);
         }
     }
 
@@ -67,7 +72,7 @@ const BookingScreen = ({navigation, route: {params}}) => {
         <View style={styles.container}>
             <HorizontalMonthPicker getCalendar={setCalendar}/>
             <VerticalTimeBooking books={books} setTimeSelected={getTimeSelected}/>
-            <DialogAction visible={dialogConfirmVisible} setVisible={setDialogConfirmVisible} setAction={booking} title={title} description={description}/>
+            <DialogAction visible={dialogConfirmVisible} setAction={booking} title={title} description={description}/>
             <Dialog visible={loading}>
                 <Dialog.Loading/>
             </Dialog>

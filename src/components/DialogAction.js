@@ -9,24 +9,19 @@ const styles = StyleSheet.create({
         flexDirection: "row",
     },
     title: {
-        
+
     },
     description:{
         marginBottom: 20,
     },
 });
 
-const DialogAction = ({visible, setVisible, title, description, setAction}) => {
-
-    const toggleDialog = () => {
-        setVisible(!visible);
-    }
+const DialogAction = ({visible, title, description, setAction}) => {
 
   return (
     <View style={styles.container}>
         <Dialog
             isVisible={visible}
-            onBackdropPress={toggleDialog}
             style={{backgroundColor: "black"}}
             >
             <Dialog.Title title={title} titleStyle={styles.title}/>
@@ -36,7 +31,7 @@ const DialogAction = ({visible, setVisible, title, description, setAction}) => {
                 title={"Cancelar"}
                 containerStyle={{width: '50%'}}
                 type="clear"
-                onPress={() => setVisible(!visible)}
+                onPress={() => setAction(true)}
                 />
                 <Button
                 title={'Aceptar'}
