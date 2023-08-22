@@ -5,7 +5,7 @@ import {calendar} from '../data/calendar';
 
 const styles = StyleSheet.create({
    container: {
-       
+
    },
    containerMonths: {
     justifyContent: "space-around",
@@ -53,7 +53,7 @@ const HorizontalMonthPicker = ({navigation, getCalendar}) => {
     const [day, setDay] = React.useState(currentMonth.days.find( day => day.id == new Date().getDate()));
 
     useEffect(() => {
-        getCalendar({month: currentMonth.id, day: day.id});
+        getCalendar({month: currentMonth.id, day: day.id, year: 2023});
     },[day]);
 
     const getBeforeMonth = () => {
@@ -70,8 +70,8 @@ const HorizontalMonthPicker = ({navigation, getCalendar}) => {
     return (
         <View style={styles.container}>
 
-            {currentMonth 
-                && 
+            {currentMonth
+                &&
                 <>
                     <View style={styles.containerMonths}>
                         <TouchableOpacity style={styles.containerArrowLeft} onPress={getBeforeMonth}>
@@ -96,7 +96,7 @@ const HorizontalMonthPicker = ({navigation, getCalendar}) => {
                     />
                 </>
             }
-            
+
         </View>
     )
 }

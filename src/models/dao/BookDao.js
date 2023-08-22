@@ -1,8 +1,8 @@
 export class BookDao {
-  constructor(bookingDate, placeId, time, dateTime) {
+  constructor(bookingDate, placeId, timeId, dateTime) {
     this.bookingDate = bookingDate;
     this.placeId = placeId;
-    this.time = time;
+    this.timeId = timeId;
     this.dateTime = dateTime;
   }
 }

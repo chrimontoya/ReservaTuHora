@@ -67,29 +67,28 @@ const styles = StyleSheet.create({
     },
 });
 const BookingPlaceScreen = ({navigation,route}) => {
-
-    const { name,description,address,img,availableTime,reviews, id}: PlaceModel = route.params;
+    const [place, setPlace] = React.useState(route.params);
 
     return (
         <View style={styles.container}>
             <View style={styles.containerDescription}>
-                <Text style={styles.title}>{name}</Text>
+                <Text style={styles.title}>{place.name}</Text>
                 <View style={styles.containerAddress}>
                     <Icon name={'flag'} style={styles.flagIcon}/>
-                    <Text style={styles.address}>{address}</Text>
+                    <Text style={styles.address}>{place.address}</Text>
                 </View>
                 <View style={styles.containerReview}>
                     <Icon name={'white-balance-sunny'} style={styles.sunIcon}/>
-                    <Text style={styles.reviews}>{'Reseñas ' + reviews}</Text>
+                    <Text style={styles.reviews}>{'Reseñas ' + place.reviews}</Text>
                 </View>
                 <Text style={styles.description}>
-                    {description}
+                    {place.description}
                 </Text>
                 <View style={styles.containerBooking}>
                     <Icon name={'clock'} style={styles.clockIcon}/>
-                    <Text style={styles.bookingText}>{'Horas disponibles hoy ' + availableTime}</Text>
+                    <Text style={styles.bookingText}>{'Horas disponibles hoy ' + place.availableTime}</Text>
                 </View>
-                <Button title={"Reservar hora"} containerStyle={styles.containerBookingButton} onPress={() => navigation.navigate('Booking',route.params ) }/>
+                <Button title={"Reservar hora"} containerStyle={styles.containerBookingButton} onPress={() => navigation.navigate('Booking',place ) }/>
             </View>
         </View>
     )

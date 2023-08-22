@@ -6,6 +6,9 @@ import VerticalTimeBooking from '../../components/VerticalTimeBooking';
 import DialogAction from '../../components/DialogAction';
 import { Button, Dialog } from '@rneui/themed';
 import firestore from "@react-native-firebase/firestore";
+import { BookDao } from "../../models/dao/BookDao";
+import moment from "moment";
+import { BookDate } from "../../models/dao/BookDate";
 
 const styles = StyleSheet.create({
    container: {
@@ -30,32 +33,48 @@ const BookingScreen = ({navigation, route: {params}}) => {
             //confirm call to bd
             setDialogConfirmVisible(false);
             setLoading(true);
-            console.log(`params: ${params.title} - reserva: ${bookingDate}`);
-            await firestore()
-              .collection('BOOK')
-              .add()
+            const bookDao = new BookDao(bookingDate,params.id, timeSelected);
+             await firestore()
+               .collection('BOOK')
+               .add(JSON.parse(JSON.stringify(bookDao)))
+               .then(() => {
+                 setLoading(false);
+                 console.log("Reserva completada");
+                 getBookingByDate();
+               })
+               .catch(err => {
+                 setLoading(false);
+                 console.error("Error al reservar hora: ", err);
+               });
             // setSuccess(true);
         }else{
-            //levantar algún popup por debajo
+            //levantar algún popup por debajoW
+          console.log("operacion cancelada");
             setDialogConfirmVisible(false);
         }
     }
 
     const getTimeSelected = (timeSelected)=> {
-      console.log(timeSelected, calendar)
-        if(calendar != undefined && timeSelected){
-            //hacer reserva
-            setBookingDate(new Date(2023,calendar.month - 1, calendar.day).toDateString());
-            if(bookingDate != undefined){
+      setTimeSelected(timeSelected);
+        if(calendar !== undefined && timeSelected !== undefined){
+            //call dialog confirm
+            setBookingDate(new BookDate(calendar.day, calendar.month, calendar.year));
+            if(bookingDate !== undefined){
                 setDialogConfirmVisible(true);
             }
+        }else{
+          console.error("Error al seleccionar hora");
         }
     }
 
     const getBookingByDate = async () => {
       try{
-        const querySnapshot = await firestore().collection('BOOK').where('placeId','==', 1).get();
-        querySnapshot.docs.map(doc => books.push(doc.data()));
+        const booksSnapshot = [];
+        const querySnapshot = await firestore().collection('BOOK').where('placeId','==', params.id).get();
+        querySnapshot.docs.map(doc => {
+          booksSnapshot.push(doc.data());
+        });
+        setbooks(booksSnapshot);
       } catch (err) {
         console.error("Error al obtener reservas del día: ",err);
       }
@@ -66,12 +85,12 @@ const BookingScreen = ({navigation, route: {params}}) => {
         //get hours available at day
         getBookingByDate();
       }
-    },[calendar]);
+    },[calendar,books]);
 
     return (
         <View style={styles.container}>
             <HorizontalMonthPicker getCalendar={setCalendar}/>
-            <VerticalTimeBooking books={books} setTimeSelected={getTimeSelected}/>
+            <VerticalTimeBooking books={books} placeId={params.id} setTimeSelected={getTimeSelected}/>
             <DialogAction visible={dialogConfirmVisible} setAction={booking} title={title} description={description}/>
             <Dialog visible={loading}>
                 <Dialog.Loading/>

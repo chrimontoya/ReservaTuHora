@@ -31,7 +31,7 @@ const DialogAction = ({visible, title, description, setAction}) => {
                 title={"Cancelar"}
                 containerStyle={{width: '50%'}}
                 type="clear"
-                onPress={() => setAction(true)}
+                onPress={() => setAction(false)}
                 />
                 <Button
                 title={'Aceptar'}
