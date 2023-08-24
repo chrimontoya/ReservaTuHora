@@ -9,6 +9,7 @@ import firestore from "@react-native-firebase/firestore";
 import { BookDao } from "../../models/dao/BookDao";
 import moment from "moment";
 import { BookDate } from "../../models/dao/BookDate";
+import { dataCalendar } from '../../data/calendar';
 
 const styles = StyleSheet.create({
    container: {
@@ -27,6 +28,8 @@ const BookingScreen = ({navigation, route: {params}}) => {
     const [description, setDescription] = React.useState('Una vez confirmado quedará registrado en el lugar de reserva y se enviará un correo con las indicaciones por parte del lugar de reserva');
     const [calendar, setCalendar] = React.useState(undefined);
     const [books, setbooks] = React.useState([]);
+    const [monthSelected, setMonthSelected] = React.useState();
+
 
     const booking = async (state) => {
         if(state){
@@ -54,43 +57,27 @@ const BookingScreen = ({navigation, route: {params}}) => {
         }
     }
 
-    const getTimeSelected = (timeSelected)=> {
-      setTimeSelected(timeSelected);
-        if(calendar !== undefined && timeSelected !== undefined){
-            //call dialog confirm
-            setBookingDate(new BookDate(calendar.day, calendar.month, calendar.year));
-            if(bookingDate !== undefined){
-                setDialogConfirmVisible(true);
-            }
-        }else{
-          console.error("Error al seleccionar hora");
-        }
-    }
+    const getCalendar = async () => {
+      //reemplazar por firebase
+      // const querySnapshot = await firestore().collection('CALENDAR').where('year', '==', 2023).get();
+      // querySnapshot.docs.map( doc => {
+      //   if(doc.data().months){
+      //     doc.data().months.map(month => console.log(month.name))
+      //   }
+      // });
 
-    const getBookingByDate = async () => {
-      try{
-        const booksSnapshot = [];
-        const querySnapshot = await firestore().collection('BOOK').where('placeId','==', params.id).get();
-        querySnapshot.docs.map(doc => {
-          booksSnapshot.push(doc.data());
-        });
-        setbooks(booksSnapshot);
-      } catch (err) {
-        console.error("Error al obtener reservas del día: ",err);
-      }
+      const querySnapshot = JSON.stringify(dataCalendar.months);
     }
 
     useEffect(() => {
-      if(calendar != undefined){
-        //get hours available at day
-        getBookingByDate();
-      }
-    },[calendar,books]);
+      
+        console.log(monthSelected);
+    },[monthSelected]);
 
     return (
         <View style={styles.container}>
-            <HorizontalMonthPicker getCalendar={setCalendar}/>
-            <VerticalTimeBooking books={books} placeId={params.id} setTimeSelected={getTimeSelected}/>
+            <HorizontalMonthPicker data={dataCalendar} setMonthSelected={setMonthSelected}/>
+            {/* <VerticalTimeBooking books={books} placeId={params.id} setTimeSelected={getTimeSelected}/> */}
             <DialogAction visible={dialogConfirmVisible} setAction={booking} title={title} description={description}/>
             <Dialog visible={loading}>
                 <Dialog.Loading/>

@@ -5,6 +5,7 @@ import HorizontalCategoryList from "../../components/HorizontalCategoryList";
 import firestore from '@react-native-firebase/firestore';
 import HorizontalBookingCard from "../../components/HorizontalBookingCard";
 import HorizontalMonthPicker from '../../components/HorizontalMonthPicker';
+import { dataCalendar } from '../../data/calendar';
 const HomeScreen = () => {
     const [place, setPlace] = React.useState(null);
     const [reservas, setReservas] = React.useState([]);
@@ -43,7 +44,6 @@ const HomeScreen = () => {
 
     useEffect( () => {
         getReservas();
-
     },[]);
 
     return (

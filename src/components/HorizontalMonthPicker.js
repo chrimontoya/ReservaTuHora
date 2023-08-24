@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, FlatList} from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import {calendar} from '../data/calendar';
+import {dataCalendar} from '../data/calendar';
+import { MonthDTO } from '../models/dto/MonthDto';
 
 const styles = StyleSheet.create({
    container: {
@@ -47,49 +48,58 @@ const styles = StyleSheet.create({
     },
 });
 
-const HorizontalMonthPicker = ({navigation, getCalendar}) => {
-    const [months, setMonths] = React.useState(calendar.months);
-    const [currentMonth, setCurrentMonth] = React.useState(months.find(month => month.id == (new Date().getMonth() + 1)));
-    const [day, setDay] = React.useState(currentMonth.days.find( day => day.id == new Date().getDate()));
+const HorizontalMonthPicker = ({navigation, data, setMonthSelected}) => {
+    const [year, setYear] = React.useState(data.year);
+    const [months, setMonths] = React.useState(data.months);
+    const [currentMonthSelected, setCurrentMonthSelected] = React.useState(new Date().getMonth() + 1);
+    const [monthFiltered, setMonthFiltered] = React.useState(undefined);
 
     useEffect(() => {
-        getCalendar({month: currentMonth.id, day: day.id, year: 2023});
-    },[day]);
+        setMonthFiltered(months.find(month => month.id == currentMonthSelected));
+    },[currentMonthSelected]);
 
     const getBeforeMonth = () => {
-      if(currentMonth.id > 1){
-          setCurrentMonth(months.find( month => month.id == (currentMonth.id - 1)));
+      if(currentMonthSelected > 1){
+        setCurrentMonthSelected(currentMonthSelected -1);
       }
     }
     const getAfterMonth = () => {
-        if(currentMonth.id < 12){
-            setCurrentMonth(months.find( month => month.id == (currentMonth.id + 1)));
+        if(currentMonthSelected < 12){
+            setCurrentMonthSelected(currentMonthSelected + 1);
         }
+    }
+
+    const getMonthSelected= (day) => {
+     const month = {
+        id: monthFiltered.id,
+        name: monthFiltered.name,
+        day: day
+     }
+     setMonthSelected(new MonthDTO(month));
     }
 
     return (
         <View style={styles.container}>
 
-            {currentMonth
-                &&
+            {monthFiltered &&
                 <>
                     <View style={styles.containerMonths}>
                         <TouchableOpacity style={styles.containerArrowLeft} onPress={getBeforeMonth}>
                             <Icon name={'chevron-left'} size={34} style={styles.arrowLeft} />
                         </TouchableOpacity>
-                        <Text style={styles.monthLabel}>{currentMonth.month}</Text>
+                        <Text style={styles.monthLabel}>{monthFiltered && (`${monthFiltered.name}, ${year}`)}</Text>
                         <TouchableOpacity style={styles.containerArrowRight} onPress={getAfterMonth}>
                             <Icon name={'chevron-right'} size={34} style={styles.arrowRight} />
                         </TouchableOpacity>
                     </View>
                     <FlatList
-                        data={currentMonth.days}
+                        data={monthFiltered.days}
                         horizontal
                         renderItem={({ item }) =>
-                            <TouchableOpacity style={styles.button} onPress={()=>setDay(item)}>
+                            <TouchableOpacity style={styles.button} onPress={() => getMonthSelected(item)}>
                                 <View style={[styles.containerDays]}>
                                     <Text style={styles.numberDayLabel}>{item.id}</Text>
-                                    <Text style={styles.nameDayLabel}>{item.day}</Text>
+                                    <Text style={styles.nameDayLabel}>{item.name}</Text>
                                 </View>
                             </TouchableOpacity>
                         }
