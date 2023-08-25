@@ -10,6 +10,7 @@ import { BookDao } from "../../models/dao/BookDao";
 import moment from "moment";
 import { BookDate } from "../../models/dao/BookDate";
 import { dataCalendar } from '../../data/calendar';
+import { TimeReserveDTO } from '../../models/dto/TimeReserveDTO';
 
 const styles = StyleSheet.create({
    container: {
@@ -28,33 +29,28 @@ const BookingScreen = ({navigation, route: {params}}) => {
     const [description, setDescription] = React.useState('Una vez confirmado quedará registrado en el lugar de reserva y se enviará un correo con las indicaciones por parte del lugar de reserva');
     const [calendar, setCalendar] = React.useState(undefined);
     const [books, setbooks] = React.useState([]);
-    const [monthSelected, setMonthSelected] = React.useState();
+    const [monthSelected, setMonthSelected] = React.useState(); // mes y dia seleccionado para reservar
+    const [timeToReserve, setTimeToReserve] = React.useState(); // hora seleccionada para reservar
+    const [reservedTimes, setReservedTimes] = React.useState(); // usado para horas reservadas por filtro
+    const [action, setAction] = React.useState(); //devuelve la accion seleccionada del dialogConfirm
 
 
-    const booking = async (state) => {
-        if(state){
-            //confirm call to bd
-            setDialogConfirmVisible(false);
-            setLoading(true);
-            const bookDao = new BookDao(bookingDate,params.id, timeSelected);
-             await firestore()
-               .collection('BOOK')
-               .add(JSON.parse(JSON.stringify(bookDao)))
-               .then(() => {
-                 setLoading(false);
-                 console.log("Reserva completada");
-                 getBookingByDate();
-               })
-               .catch(err => {
-                 setLoading(false);
-                 console.error("Error al reservar hora: ", err);
-               });
+    const booking = async () => {
+        setLoading(true);
+        const bookDao = new BookDao(params.id, timeToReserve.id, monthSelected.id, monthSelected.day.id);
+            await firestore()
+            .collection('BOOK')
+            .add(JSON.parse(JSON.stringify(bookDao)))
+            .then(() => {
+                console.log("reserva ok");
+                setLoading(false);
+                setSuccess(true);
+            })
+            .catch((err)=> {
+                console.error("error al reservar: ",err);
+                setLoading(false);
+            })
             // setSuccess(true);
-        }else{
-            //levantar algún popup por debajoW
-          console.log("operacion cancelada");
-            setDialogConfirmVisible(false);
-        }
     }
 
     const getCalendar = async () => {
@@ -69,16 +65,34 @@ const BookingScreen = ({navigation, route: {params}}) => {
       const querySnapshot = JSON.stringify(dataCalendar.months);
     }
 
+    const getAction = (actionSelected) => {
+        if(actionSelected){
+            //guardar a bd
+            console.log("confirm");
+            setDialogConfirmVisible(false);
+            booking();
+        }else{
+            //levantar burbuja con msj
+            console.log("cancel");
+            setDialogConfirmVisible(false);
+        }
+    }
+
     useEffect(() => {
       
-        console.log(monthSelected);
-    },[monthSelected]);
+        if(monthSelected != undefined && timeToReserve != undefined && params != undefined){
+            //abrir modal confirm
+            console.log("abrir modal");
+            setDialogConfirmVisible(true);
+        }
+
+    },[timeToReserve]);
 
     return (
         <View style={styles.container}>
             <HorizontalMonthPicker data={dataCalendar} setMonthSelected={setMonthSelected}/>
-            {/* <VerticalTimeBooking books={books} placeId={params.id} setTimeSelected={getTimeSelected}/> */}
-            <DialogAction visible={dialogConfirmVisible} setAction={booking} title={title} description={description}/>
+            <VerticalTimeBooking reservedTime={reservedTimes} getTimeToReserve={setTimeToReserve}/>
+            <DialogAction visible={dialogConfirmVisible} getAction={getAction} title={title} description={description}/>
             <Dialog visible={loading}>
                 <Dialog.Loading/>
             </Dialog>

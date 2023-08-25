@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, Text, TouchableOpacity, View } from 'react-native
 import {minutesData} from '../data/calendar';
 import DialogAction from './DialogAction';
 import { Button, Dialog } from '@rneui/themed';
+import { TimeReserveDTO } from '../models/dto/TimeReserveDTO';
 
 const styles = StyleSheet.create({
     container: {
@@ -45,10 +46,14 @@ const styles = StyleSheet.create({
     },
 });
 
-const VerticalTimeBooking = ({setTimeSelected, books, placeId}) => {
-  const getAvailableReservation = (time_id) => {
-    if(books.some( book => book.timeId !== time_id)){
-      setTimeSelected(time_id);
+const VerticalTimeBooking = ({getTimeToReserve, reservedTimes}) => {
+  const getAvailableReservation = (timeToReserve) => {
+    if(reservedTimes != undefined){
+        if(reservedTimes.some( reservedTime => reservedTime.id !== timeToReserve.id)){
+            getTimeToReserve(new TimeReserveDTO(timeToReserve));
+        }
+    }else{
+        getTimeToReserve(new TimeReserveDTO(timeToReserve));
     }
   }
 
@@ -61,8 +66,8 @@ const VerticalTimeBooking = ({setTimeSelected, books, placeId}) => {
                     <View style={styles.containerMinutesLabel}>
                         <Text style={styles.minutesLabel}>{item.minute}</Text>
                     </View>
-                    <TouchableOpacity style={styles.reservaButton} onPress={() => getAvailableReservation(item.id)}>
-                        <Text style={styles.reservaLabel}>{ books.some( book => book.timeId === item.id) ? 'Reservado' : 'Disponible para reserva'}</Text>
+                    <TouchableOpacity style={styles.reservaButton} onPress={() => getAvailableReservation(item)}>
+                        <Text style={styles.reservaLabel}>{reservedTimes != undefined && reservedTimes.some( reservedTime => reservedTime.id === item.id) ? 'Reservado' : 'Disponible para reserva'}</Text>
                     </TouchableOpacity>
                 </View>
         }

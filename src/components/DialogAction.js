@@ -16,13 +16,23 @@ const styles = StyleSheet.create({
     },
 });
 
-const DialogAction = ({visible, title, description, setAction}) => {
+const DialogAction = ({visible,title, description, getAction}) => {
+
+
+    const cancel = () => {
+        getAction(false);
+    }
+
+    const confirm = () => {
+        getAction(true);
+    }
 
   return (
     <View style={styles.container}>
         <Dialog
             isVisible={visible}
             style={{backgroundColor: "black"}}
+            back
             >
             <Dialog.Title title={title} titleStyle={styles.title}/>
             <Text style={styles.description}>{description}</Text>
@@ -31,12 +41,12 @@ const DialogAction = ({visible, title, description, setAction}) => {
                 title={"Cancelar"}
                 containerStyle={{width: '50%'}}
                 type="clear"
-                onPress={() => setAction(false)}
+                onPress={() => cancel()}
                 />
                 <Button
                 title={'Aceptar'}
                 containerStyle={{width: '50%'}}
-                onPress={() => setAction(true)}
+                onPress={() => confirm()}
                 />
             </View>
         </Dialog>

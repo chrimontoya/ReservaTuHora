@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, FlatList} from 'react-native';
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import {dataCalendar} from '../data/calendar';
-import { MonthDTO } from '../models/dto/MonthDto';
+import { MonthDTO } from '../models/dto/MonthDTO';
 
 const styles = StyleSheet.create({
    container: {
