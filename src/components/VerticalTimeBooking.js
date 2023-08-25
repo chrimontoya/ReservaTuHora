@@ -47,9 +47,13 @@ const styles = StyleSheet.create({
 });
 
 const VerticalTimeBooking = ({getTimeToReserve, reservedTimes}) => {
+
+    useEffect(() => {
+    }, [reservedTimes]);
+
   const getAvailableReservation = (timeToReserve) => {
     if(reservedTimes != undefined){
-        if(reservedTimes.some( reservedTime => reservedTime.id !== timeToReserve.id)){
+        if(reservedTimes.some( reservedTime => reservedTime.timeReserveId !== timeToReserve.id)){
             getTimeToReserve(new TimeReserveDTO(timeToReserve));
         }
     }else{
@@ -67,7 +71,7 @@ const VerticalTimeBooking = ({getTimeToReserve, reservedTimes}) => {
                         <Text style={styles.minutesLabel}>{item.minute}</Text>
                     </View>
                     <TouchableOpacity style={styles.reservaButton} onPress={() => getAvailableReservation(item)}>
-                        <Text style={styles.reservaLabel}>{reservedTimes != undefined && reservedTimes.some( reservedTime => reservedTime.id === item.id) ? 'Reservado' : 'Disponible para reserva'}</Text>
+                        <Text style={styles.reservaLabel}>{reservedTimes != undefined && reservedTimes.some( reservedTime => reservedTime.timeReserveId === item.id) ? 'Reservado' : 'Disponible para reserva'}</Text>
                     </TouchableOpacity>
                 </View>
         }

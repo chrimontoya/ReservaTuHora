@@ -31,9 +31,13 @@ const BookingScreen = ({navigation, route: {params}}) => {
     const [books, setbooks] = React.useState([]);
     const [monthSelected, setMonthSelected] = React.useState(); // mes y dia seleccionado para reservar
     const [timeToReserve, setTimeToReserve] = React.useState(); // hora seleccionada para reservar
-    const [reservedTimes, setReservedTimes] = React.useState(); // usado para horas reservadas por filtro
+    const [reservedTimes, setReservedTimes] = React.useState([]); // usado para horas reservadas por filtro
     const [action, setAction] = React.useState(); //devuelve la accion seleccionada del dialogConfirm
 
+    const getReservedTimes = async () => {
+        const querySnapshot = await firestore().collection('BOOK').get();
+        setReservedTimes(querySnapshot.docs.map( doc => doc.data()));
+    }
 
     const booking = async () => {
         setLoading(true);
@@ -45,6 +49,7 @@ const BookingScreen = ({navigation, route: {params}}) => {
                 console.log("reserva ok");
                 setLoading(false);
                 setSuccess(true);
+                getReservedTimes();
             })
             .catch((err)=> {
                 console.error("error al reservar: ",err);
@@ -88,10 +93,14 @@ const BookingScreen = ({navigation, route: {params}}) => {
 
     },[timeToReserve]);
 
+    useEffect(() => {
+        getReservedTimes();
+    },[]);
+
     return (
         <View style={styles.container}>
             <HorizontalMonthPicker data={dataCalendar} setMonthSelected={setMonthSelected}/>
-            <VerticalTimeBooking reservedTime={reservedTimes} getTimeToReserve={setTimeToReserve}/>
+            <VerticalTimeBooking reservedTimes={reservedTimes} getTimeToReserve={setTimeToReserve}/>
             <DialogAction visible={dialogConfirmVisible} getAction={getAction} title={title} description={description}/>
             <Dialog visible={loading}>
                 <Dialog.Loading/>
