@@ -55,6 +55,18 @@ const HorizontalMonthPicker = ({navigation, data, setMonthSelected}) => {
     const [monthFiltered, setMonthFiltered] = React.useState(undefined);
 
     useEffect(() => {
+         const defaultMonth = months.find(month => month.id == currentMonthSelected);
+         if(defaultMonth != undefined){
+            const month = {
+                id: defaultMonth.id,
+                name: defaultMonth.name,
+                day: new Date().getDate()
+            }
+            setMonthSelected(new MonthDTO(month));
+         }
+    },[]);
+
+    useEffect(() => {
         setMonthFiltered(months.find(month => month.id == currentMonthSelected));
     },[currentMonthSelected]);
 

@@ -18,25 +18,20 @@ const styles = StyleSheet.create({
    }
 });
 const BookingScreen = ({navigation, route: {params}}) => {
-    // const [monthSelected, setMonthSelected] = React.useState(null);
-    const [daySelected, setDaySelected] = React.useState(0);
-    const [timeSelected, setTimeSelected] = React.useState(undefined);
     const [bookingDate, setBookingDate] = React.useState(undefined);
     const [dialogConfirmVisible, setDialogConfirmVisible] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
     const [success, setSuccess] = React.useState(false);
     const [title, setTitle] = React.useState('Confirmar reserva');
     const [description, setDescription] = React.useState('Una vez confirmado quedará registrado en el lugar de reserva y se enviará un correo con las indicaciones por parte del lugar de reserva');
-    const [calendar, setCalendar] = React.useState(undefined);
-    const [books, setbooks] = React.useState([]);
     const [monthSelected, setMonthSelected] = React.useState(); // mes y dia seleccionado para reservar
     const [timeToReserve, setTimeToReserve] = React.useState(); // hora seleccionada para reservar
     const [reservedTimes, setReservedTimes] = React.useState([]); // usado para horas reservadas por filtro
-    const [action, setAction] = React.useState(); //devuelve la accion seleccionada del dialogConfirm
 
     const getReservedTimes = async () => {
         const querySnapshot = await firestore().collection('BOOK').get();
-        setReservedTimes(querySnapshot.docs.map( doc => doc.data()));
+        const books = querySnapshot.docs.map( doc => doc.data());
+        setReservedTimes(books);
     }
 
     const booking = async () => {
@@ -46,7 +41,6 @@ const BookingScreen = ({navigation, route: {params}}) => {
             .collection('BOOK')
             .add(JSON.parse(JSON.stringify(bookDao)))
             .then(() => {
-                console.log("reserva ok");
                 setLoading(false);
                 setSuccess(true);
                 getReservedTimes();
@@ -96,6 +90,7 @@ const BookingScreen = ({navigation, route: {params}}) => {
     useEffect(() => {
         getReservedTimes();
     },[]);
+
 
     return (
         <View style={styles.container}>
