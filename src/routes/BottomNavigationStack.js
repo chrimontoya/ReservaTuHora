@@ -2,20 +2,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React,{useEffect} from 'react';
 import HomeNavigationStack from './HomeNavigationStack';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import auth from '@react-native-firebase/auth';
 import SettingNavigationStack from './SettingNavigationStack';
 
 const Tab = createBottomTabNavigator();
 
 const BottomNavigationStack = ({navigation}) => {
-
-  useEffect(()=> {
-    if(auth().currentUser){
-        navigation.navigate('Home');
-    }else{
-        console.log("No user");
-    }
-},[]);
 
   return (
     <Tab.Navigator>

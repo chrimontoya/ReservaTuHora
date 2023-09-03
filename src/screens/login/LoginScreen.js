@@ -130,11 +130,6 @@ const LoginScreen = ({ navigation }) => {
                 <Text style={styles.labelButton}>{'Iniciar sesión'}</Text>
             </TouchableOpacity>
             <Text style={styles.labelEnterToAccount}>{'o entrar en mi cuenta con'}</Text>
-            <Button
-                title={'Cerrar sesión'}
-                onPress={() => auth().signOut().then(res => console.log(res))}
-                color={'warning'}
-            />
             <View style={styles.containerLabelRegister}>
                 <Text style={styles.labelRegister}>{'Soy nuevo aquí, '}</Text>
                 <TouchableOpacity

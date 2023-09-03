@@ -2,12 +2,15 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import BottomNavigationStack from './BottomNavigationStack';
+import LoginScreen from '../screens/login/LoginScreen';
+import auth from '@react-native-firebase/auth';
 const RouterNavigationStack = () => {
+  const isLogged = auth().currentUser;
   const Stack = createNativeStackNavigator();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen component={BottomNavigationStack} name={'BottomTab'} options={{headerShown: false}}/>
+      <Stack.Navigator initialRouteName={'LoginScreen'}>
+      <Stack.Screen component={BottomNavigationStack} name={'BottomTab'} options={{headerShown: false}}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
