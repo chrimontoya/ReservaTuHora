@@ -2,14 +2,13 @@ import React from 'react';
 import {TouchableOpacity, FlatList, View, StyleSheet, Text} from 'react-native';
 const styles = StyleSheet.create({
     container: {
-
     },
     button: {
         paddingVertical: 10,
         paddingHorizontal: 20,
         margin: 5,
         borderRadius: 20,
-        backgroundColor: 'yellow'
+        backgroundColor: '#F9D949',
     },
     buttonTitle: {
         fontWeight: "bold"
@@ -18,7 +17,7 @@ const styles = StyleSheet.create({
 
 const HorizontalCategoryList = ({data}) => {
     return (
-        <View>
+        <View style={styles.container}>
             <FlatList
                 horizontal
                 data={data} renderItem={({item}) =>

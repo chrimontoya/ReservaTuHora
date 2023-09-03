@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
         margin: 20,
     },
     containerImg: {
-        backgroundColor: 'red',
+        backgroundColor: '#F9D949',
         width:  240,
         height: 340,
         borderRadius: 40,
