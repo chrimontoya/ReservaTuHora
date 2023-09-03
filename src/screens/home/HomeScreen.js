@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {Input} from '@rneui/themed';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, ScrollView} from 'react-native';
 import HorizontalCategoryList from "../../components/HorizontalCategoryList";
 import firestore from '@react-native-firebase/firestore';
 import HorizontalBookingCard from "../../components/HorizontalBookingCard";
@@ -80,28 +80,30 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.containerIcon}>
-                <Icon style={styles.icon} name='brightness-4' color={'#303955'} size={34}/>
-            </View>
-            <Text style={styles.firstTitle}>Hola Nombre usuario</Text>
-            <Text style={styles.secondTitle}>Vamos a agendar una hora</Text>
-            <Input
-                placeholder='¿Donde deseas reservar?'
-                leftIcon={{ type: 'material-community', name: 'magnify' }}
-                onChangeText={(place) => setPlace(place)}
-                style={styles.inputSearch}
-                containerStyle={styles.containerInputSearch}
-                inputContainerStyle={{                         borderBottomWidth: 0.3,
-                    borderTopWidth: 0.3,
-                    borderLeftWidth: 0.3,
-                    borderRightWidth: 0.3,
-                    borderRadius: 8,
-                    marginHorizontal: 10,
-                    paddingHorizontal: 10,
-                }}
-            />
-            <HorizontalCategoryList data={data}/>
-            <HorizontalBookingCard data={reservas}/>
+            <ScrollView contentContainerStyle={{justifyContent: 'center', flexGrow: 1}}>
+                <View style={styles.containerIcon}>
+                    <Icon style={styles.icon} name='brightness-4' color={'#303955'} size={34}/>
+                </View>
+                <Text style={styles.firstTitle}>Hola Nombre usuario</Text>
+                <Text style={styles.secondTitle}>Vamos a agendar una hora</Text>
+                <Input
+                    placeholder='¿Donde deseas reservar?'
+                    leftIcon={{ type: 'material-community', name: 'magnify' }}
+                    onChangeText={(place) => setPlace(place)}
+                    style={styles.inputSearch}
+                    containerStyle={styles.containerInputSearch}
+                    inputContainerStyle={{                         borderBottomWidth: 0.3,
+                        borderTopWidth: 0.3,
+                        borderLeftWidth: 0.3,
+                        borderRightWidth: 0.3,
+                        borderRadius: 8,
+                        marginHorizontal: 10,
+                        paddingHorizontal: 10,
+                    }}
+                />
+                <HorizontalCategoryList data={data}/>
+                <HorizontalBookingCard data={reservas}/>
+            </ScrollView>
         </View>
 
     )
