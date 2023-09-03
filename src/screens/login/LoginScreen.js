@@ -66,13 +66,6 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = React.useState('');
   const [passVisible, setPassVisible] = React.useState(false);
 
-  useEffect(()=> {
-      if(auth().currentUser){
-          navigation.navigate('Home');
-      }else{
-          console.log("No user");
-      }
-  },[]);
   const signInWithEmailAndPassword = () => {
 
       if(user && password){
